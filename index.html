@@ -4,12 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3 Bar Chart</title>
+    <div id="main">
+        <h1 id="title">United States GDP</h1>
+    </div>
     
 </head>
 <body>
     <script type="module">
         import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-        d3.select("body").append("h1").text("Hola");
+        import {GDP} from "./data.js";
+        const find = GDP.data;
+
+        const w = 900;
+        const h = 600;
+        const padding = 10;
+
+        
+        const xScale = d3.scaleLinear().domain([1950, 2015]).range([padding, w - padding]);
+        const yScale = d3.scaleLinear().domain([0, 18000]).range([h- padding, padding]);
+
+        const svg = d3.select("div").append("svg").attr("width", w).attr("height", h);
+        svg.selectAll("rect").data(find).enter().append("rect").attr("x", (d) => xScale(d[0])).attr("y", (d) => yScale(d[1]));
+
+        const xAxis = d3.axisBottom(xScale);
+        const yAxis = d3.axisLeft(yScale);
+
+        svg.append("g").attr("transform", "translate(60," + (h - padding * 2) + ")").call(xAxis);
+        svg.append("g").attr("transform", "translate(" + (padding * 5) + ", 0)").call(yAxis);
+        
+
+        console.log(find[2]);
     </script>
 </body>
 </html>
