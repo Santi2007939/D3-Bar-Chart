@@ -60,13 +60,14 @@
             .on("mouseover", (e, i) => {
                 tooltip.transition()
                     .style("visibility", "visible");
+                tooltip.text(i[0]);
                 document.querySelector("#tooltip")
                     .setAttribute("data-date", i[0]);
             })
             .on("mouseout", (e, i) => {
                 tooltip.transition()
                     .style("visibility", "hidden");
-                
+    
             })
     </script>
 </head>
